@@ -1,0 +1,25 @@
+version: "3.8"
+
+name: docker-development
+
+services:
+  base:
+    image: docker-development-base
+    build:
+      dockerfile: ./__project/docker/Dockerfile.base
+
+  work:
+    container_name: work
+    build:
+      dockerfile: ./__project/docker/Dockerfile.work
+    environment:
+      - UID=${UID}
+      - GID=${GID}
+      - USER=${USER}
+      - PWDLINE=${PWDLINE}
+    volumes:
+      - ~/:${HOME}
+      - ./:/application
+    tty: true
+
+    
