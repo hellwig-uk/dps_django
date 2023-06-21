@@ -8,5 +8,5 @@ which is by default installed in almost all unix like environments.
 
 For setting up the environment we use Docker, again driven by Make.
 This makes it straight forward to setup the various environments in a
-predictable and automated way. Please refer to [environments](environments.md)
-for more information about this.
+predictable and automated way. Please refer to
+[Branches & Environments](branch_envs.md) for more information about this.
