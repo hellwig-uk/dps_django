@@ -1,3 +1,22 @@
 FROM python:3.11
 
+ARG PROJECT
+ARG ENVIRONMENT
+ARG USER
+ARG UID
+ARG GID
+
+RUN echo ${USER}:x:${UID}:${GID}:${USER}:/home/${USER}:/bin/bash >> /etc/passwd
+
+RUN python -m venv /opt/${PROJECT}_env
+RUN /opt/${PROJECT}_env/bin/pip install --upgrade pip
+
 WORKDIR /application
+
+COPY __project/dependencies/requirements /tmp/
+RUN /opt/${PROJECT}_env/bin/pip install -r /tmp/_internal.txt
+
+RUN /opt/${PROJECT}_env/bin/pip install -r /tmp/${ENVIRONMENT}.txt
+
+
+

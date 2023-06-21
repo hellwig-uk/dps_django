@@ -1,1 +1,5 @@
-FROM docker-development-base
+ARG PROJECT
+
+FROM ${PROJECT}-base
+
+

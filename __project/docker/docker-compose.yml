@@ -1,22 +1,28 @@
 version: "3.8"
 
-name: docker-development
+name: ${PROJECT}
 
 services:
   base:
-    image: docker-development-base
+    image: ${PROJECT}-base
     build:
       dockerfile: ./__project/docker/Dockerfile.base
-
+      args:
+        - PROJECT=${PROJECT}
+        - ENVIRONMENT=${ENVIRONMENT}
+        - UID=${UID}
+        - GID=${GID}
+        - USER=${USER}
   work:
     container_name: work
     build:
+      args:
+        - PROJECT=${PROJECT}
       dockerfile: ./__project/docker/Dockerfile.work
-    environment:
-      - UID=${UID}
-      - GID=${GID}
-      - USER=${USER}
-      - PWDLINE=${PWDLINE}
+    env_file:
+      - .env
+    depends_on:
+      - base      
     volumes:
       - ~/:${HOME}
       - ./:/application
