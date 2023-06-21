@@ -1,3 +1,15 @@
+ifeq ($(shell test -e .env && echo yes),)
+    $(error '.env' file is missing)
+endif
+
+CHECK:=$(shell  __project/scripts/check.sh)
+
+ifneq ($(CHECK), )
+    $(error $(CHECK))
+endif
+
+include .env
+
 ARGS?=
 NAME?=
 NARG=$(words $(MAKECMDGOALS))

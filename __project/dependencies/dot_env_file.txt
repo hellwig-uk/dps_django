@@ -1,0 +1,4 @@
+# .env file example.
+UID=# Your user id, e.g. `id -u`
+GID=# Your group id, e.g. `id -g`
+USER=# your user name e.g. ` id -un`
