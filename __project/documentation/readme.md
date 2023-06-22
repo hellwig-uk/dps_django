@@ -1,5 +1,5 @@
-Dunder Project
-==============
+Django Extended Dunder Project
+==============================
 
 This layout is to prevent cluttering of the repository root. It uses makefiles
 to drive most of the project administrative functionality.
