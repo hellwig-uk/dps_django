@@ -1,7 +1,6 @@
 # .env file example.
-PROJECT=dunder_project
 ENVIRONMENT=MAIN
 #
-UID=# Your user id, e.g. `id -u`
-GID=# Your group id, e.g. `id -g`
-USER=# your user name e.g. ` id -un`
+UID=#  Your user id  e.g. `id -u`
+GID=#  Your group id e.g. `id -g`
+USER=# Your username e.g. `id -un`
