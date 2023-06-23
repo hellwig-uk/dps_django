@@ -7,7 +7,6 @@
 # the other targets, but they have no effect as % will capture them and they
 # silently do nothing, unless the target doesn't exist, hence why the actual
 # targets need to be in a different sub makefile so that they don't exist.
-
 include __project/environment.txt
 
 ifeq ($(shell test -e $(DOT_ENV) && echo yes),)
@@ -22,25 +21,30 @@ endif
 
 include .env
 
-ARGS?=
-NAME?=
-NARG=$(words $(MAKECMDGOALS))
+__ARGS?=
+__NAME?=
+__NARG=$(words $(MAKECMDGOALS))
 
-ifeq ($(NARG),1)
-	include $(MAKEFILES)/*.mk
-else ifeq ($(NARG), 0)
-    include $(MAKEFILES)/help.mk
+ifeq ($(__NARG),1)
+	__ARGS:=$(__ARGS)
+	include $(MAKEDIR)/*.mk
+else ifeq ($(__NARG), 0)
+    include $(MAKEDIR)/help.mk
     .DEFAULT_GOAL = help
 else
-	ARGS=$(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
-	NAME=$(firstword  $(MAKECMDGOALS))
+	__ARGS=$(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
+	__NAME=$(firstword  $(MAKECMDGOALS))
 endif
 
-$(NAME):
-	@ARGS="$(ARGS)" make --no-print-directory $(NAME)
+.PHONE: $(MAKECMDGOALS)
 
-%:
-	@if test $(NARG) -eq 1; then \
+$(__NAME):
+	@__ARGS="$(__ARGS)" make --no-print-directory $(__NAME)
+
+$(__ARGS): .FORCE
+	@if test $(__NARG) -eq 1; then \
 		echo Target \'$(MAKECMDGOALS)\' invalid, type \`make help\` for a list \
 		of valid commands. && exit 1\
 	; fi
+
+.FORCE:

@@ -4,7 +4,7 @@ printf "%s\n" "The following commands are available:"
 beginswith() { case $2 in "$1"*) true;; *) false;; esac; }
 endswith() { case $2 in *"$1") true;; *) false;; esac; }
 
-FILES=`ls __project/makefiles/*.mk`
+FILES=`ls $MAKEDIR/*.mk`
 DOC=""
 
 for file in $FILES; do

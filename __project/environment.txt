@@ -1,6 +1,6 @@
-L=\
+._=\
 ================================================================================
-__PROJECT_VERSION=0.0.1
+DUNDER_VERSION=0.0.1
 VERSION=alpha
 
 DESCRIPTION="Dunder Project Structure and Template"
@@ -12,11 +12,11 @@ REPO=https://github.com/hellwig-uk/dunder_project
 DOMAIN=
 
 DDIR=__project
-MAKEFILES=$(DDIR)/makefiles
+MAKEDIR=$(DDIR)/makefiles
 
 DOT_ENV=.env
 DOT_ENV_TEMPLATE=$(DDIR)/dependencies/dot_env_file.txt
-DOT_ENV_CHECK_SH=$(DDIR)/scripts/check.sh
+DOT_ENV_CHECK_SH=$(DDIR)/scripts/check_env.sh
 
 EXECUTION_ENVIRONMENT=docker
 EXECUTION_ENVIRONMENT_VERSION=24.0.2
