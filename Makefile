@@ -1,50 +1,43 @@
 # This is the master makefile, it changes the behaviour of make so that given
 # multiple targets only the first one is executed and the others are given as
-# ARGS. For this to work the actual make commands need to be defined in a 
-# seperate makefile which are imported when there is only a single target.
-# in other cases the first target is used to call make again with only that
-# target and the other targets are passed as ARGS. However make does still call
-# the other targets, but they have no effect as % will capture them and they
-# silently do nothing, unless the target doesn't exist, hence why the actual
-# targets need to be in a different sub makefile so that they don't exist.
-include __project/environment.txt
+# ARGS. For this to work the actual make targets need to be defined in seperate
+# makefile(s) which are imported when there is no target. In other cases the
+# first target is used to call make again given the target and the other goals
+# as variables (so no target).
 
-ifeq ($(shell test -e $(DOT_ENV) && echo yes),)
-    $(error '.env' file is missing)
-endif
+include __project/makefiles/__environment._mk
 
-CHECK:=$(shell  $(DOT_ENV_CHECK_SH))
-
-ifneq ($(CHECK), )
-    $(error $(CHECK))
-endif
-
-include .env
-
-__ARGS?=
-__NAME?=
+ARGS?=
+__TARGET?=help
 __NARG=$(words $(MAKECMDGOALS))
 
-ifeq ($(__NARG),1)
-	__ARGS:=$(__ARGS)
-	include $(MAKEDIR)/*.mk
-else ifeq ($(__NARG), 0)
-    include $(MAKEDIR)/help.mk
-    .DEFAULT_GOAL = help
+ifeq ($(__NARG), 0)
+    undefine CALL_MAKE
+    include $(MAKEDIR)/*.mk
+	ARGS:=$(ARGS)
+	.DEFAULT_GOAL = $(__TARGET)
 else
-	__ARGS=$(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
-	__NAME=$(firstword  $(MAKECMDGOALS))
+    CALL_MAKE=true
+	__TARGET=$(firstword  $(MAKECMDGOALS))
+    __OTHERS=$(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
+	__IGNORE=$(shell echo $(__OTHERS) | tr ' ' '\n' | sort -u | grep -vwxE "$(__TARGET)")
+	__VALID_TARGETS=$(shell $(SCRIPTS)/list_targets.sh)
+	ifneq ($(filter $(__TARGET), $(__VALID_TARGETS)), $(__TARGET))
+        $(error '$(__TARGET)' is not a valid target must be one of:$(__VALID_TARGETS))
+	endif
 endif
 
-.PHONE: $(MAKECMDGOALS)
-
-$(__NAME):
-	@__ARGS="$(__ARGS)" make --no-print-directory $(__NAME)
-
-$(__ARGS): .FORCE
-	@if test $(__NARG) -eq 1; then \
-		echo Target \'$(MAKECMDGOALS)\' invalid, type \`make help\` for a list \
-		of valid commands. && exit 1\
-	; fi
-
+.EXPORT_ALL_VARIABLES:
+.PHONY: $(__TARGET) $(__OTHERS)
+.SILENT:
 .FORCE:
+
+ifdef CALL_MAKE
+
+$(__TARGET): .FORCE
+	@ARGS="$(__OTHERS)" __TARGET=$(__TARGET) make --no-print-directory
+
+$(__IGNORE): .FORCE
+	@true
+
+endif

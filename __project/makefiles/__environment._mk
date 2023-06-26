@@ -1,0 +1,13 @@
+include __project/environment.txt
+
+ifeq ($(shell test -e $(DOT_ENV) && echo yes),)
+    $(error '.env' file is missing)
+endif
+
+CHECK:=$(shell  $(DOT_ENV_CHECK_SH))
+
+ifneq ($(CHECK), )
+    $(error $(CHECK))
+endif
+
+include .env

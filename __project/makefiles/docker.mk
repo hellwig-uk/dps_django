@@ -1,30 +1,32 @@
-DC=docker compose -f __project/docker/docker-compose.yml --project-directory ./
+DC=docker compose\
+ --env-file .env \
+ -f __project/docker/docker-compose.yml --project-directory ./
 
 # Building docker images with compose.
 build:
-	$(DC) build
+	@$(DC) build
 
 # Same as build but adds --progress-plain to it, handy for troubleshooting.
 build-plain:
-	$(DC) build --progress=plain
+	@$(DC) build --progress=plain
 
 # Start the compose defined docker environment(s).
 up:
-	$(DC) up -d --force-recreate
+	@$(DC) up -d --force-recreate
 
 # Stop the compose defined docker environment(s).
 down:
-	$(DC) down
+	@$(DC) down
 
-# Create a user shell on work.
-shell:
-	@$(DC) exec -it -u $(UID) work /bin/bash
-
-# Create a root shell on work.
-root:
-	@$(DC) exec -it work /bin/bash
-
-# Spin up a base image and create a shell.
+# Spin up a base image and run command.
 base:
-	@$(DC) run -it --rm base /bin/bash
+	@$(DC) run -it --rm base $(ARGS)
+
+# Run on work using user.
+work:
+	@$(DC) exec -it -u $(UID) work $(ARGS)
+
+# Run on work using root
+work_root:
+	@$(DC) exec -it work $(ARGS)
 

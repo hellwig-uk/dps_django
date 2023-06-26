@@ -1,3 +1,8 @@
 # This help file.
 help:
-	@MAKEDIR=$(MAKEDIR) __project/scripts/print_makefile_help.sh
+	$(SCRIPTS)/print_makefile_help.sh
+
+# List all the targets
+list_targets:
+	$(SCRIPTS)/list_targets.sh
+

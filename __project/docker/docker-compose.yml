@@ -13,6 +13,8 @@ services:
         - UID=${UID}
         - GID=${GID}
         - USER=${USER}
+    volumes:
+      - ./:/application        
   work:
     container_name: work
     build:

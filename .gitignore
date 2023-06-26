@@ -2,4 +2,5 @@
 .pydevproject
 .vscode
 .env
+.env_project
 __project/venv/

@@ -9,7 +9,6 @@ ARG GID
 RUN echo ${USER}:x:${UID}:${GID}:${USER}:/home/${USER}:/bin/bash >> /etc/passwd
 
 RUN python -m venv /opt/${PROJECT}_env
-RUN /opt/${PROJECT}_env/bin/pip install --upgrade pip
 
 WORKDIR /application
 

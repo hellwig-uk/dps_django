@@ -13,10 +13,15 @@ DOMAIN=
 
 DDIR=__project
 MAKEDIR=$(DDIR)/makefiles
+SCRIPTS=$(DDIR)/scripts
+DEPENDENCIES=$(DDIR)/dependencies
 
 DOT_ENV=.env
-DOT_ENV_TEMPLATE=$(DDIR)/dependencies/dot_env_file.txt
-DOT_ENV_CHECK_SH=$(DDIR)/scripts/check_env.sh
+DOT_ENV_TEMPLATE=$(DEPENDENCIES)/dot_env_file.txt
+DOT_ENV_CHECK_SH=$(SCRIPTS)/check_env.sh
 
 EXECUTION_ENVIRONMENT=docker
 EXECUTION_ENVIRONMENT_VERSION=24.0.2
+
+VENV=/opt/$(PROJECT)_env
+PIPRDIR=$(DEPENDENCIES)/requirements

@@ -1,0 +1,2 @@
+# Put the package names in here (without version), which you wish to exclude
+# from the pip list outdated check.
