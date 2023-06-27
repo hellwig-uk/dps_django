@@ -3,4 +3,5 @@
 .vscode
 .env
 .env_project
+.devcontainer.json
 __project/venv/

@@ -1,5 +1,5 @@
 # Print the variables as they are known to make.
-show_vars:
+show-vars:
 	@$(foreach \
 	     var,$(sort $(.VARIABLES)), \
 		 $(if \

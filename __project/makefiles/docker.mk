@@ -27,6 +27,7 @@ work:
 	@$(DC) exec -it -u $(UID) work $(ARGS)
 
 # Run on work using root
-work_root:
+work-root:
 	@$(DC) exec -it work $(ARGS)
+
 
