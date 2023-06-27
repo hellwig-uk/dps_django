@@ -1,5 +1,5 @@
-Dunder Project Structure
-========================
+Django Extended Dunder Project Structure
+========================================
 
 This layout is used for `Python` based projects with a focus on preventing as
 much as possible of cluttering of the repository root. It uses `Make` to drive

@@ -3,12 +3,12 @@
 DUNDER_VERSION=0.0.1
 VERSION=alpha
 
-DESCRIPTION="Dunder Project Structure and Template"
+DESCRIPTION="Django Extended Dunder Project Structure and Template"
 
-NAME_LONG=Dunder Project Structure
-NAME_ABRV=DPS
-PROJECT=dunder_project
-REPO=https://github.com/hellwig-uk/dunder_project
+NAME_LONG=Django Dunder Project Structure
+NAME_ABRV=DPS_DJANGO
+PROJECT=dps_django
+REPO=https://github.com/hellwig-uk/dps_django
 DOMAIN=
 
 DDIR=__project
