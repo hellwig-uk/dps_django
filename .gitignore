@@ -5,3 +5,4 @@
 .env_project
 .devcontainer.json
 __project/venv/
+__pycache__

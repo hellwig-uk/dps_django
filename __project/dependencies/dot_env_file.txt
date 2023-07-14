@@ -4,3 +4,7 @@ ENVIRONMENT=MAIN
 UID=#  Your user id  e.g. `id -u`
 GID=#  Your group id e.g. `id -g`
 USER=# Your username e.g. `id -un`
+#
+POSTGRES_USER=#
+POSTGRES_PASSWORD=#
+POSTGRES_DB=#

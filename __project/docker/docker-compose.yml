@@ -6,7 +6,7 @@ services:
   base:
     image: ${PROJECT}-base
     build:
-      dockerfile: ./__project/docker/Dockerfile.base
+      dockerfile: __project/docker/Dockerfile.base
       args:
         - PROJECT=${PROJECT}
         - ENVIRONMENT=${ENVIRONMENT}
@@ -16,17 +16,30 @@ services:
         - DDIR=${DDIR}
         - VENV=${VENV}
     volumes:
-      - ./:/application        
+      - ./:/application
+  db:
+    container_name: db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    build:
+      dockerfile: __project/docker/Dockerfile.db
+    volumes:
+      - db-data:/var/lib/postgersql/data
   work:
     container_name: work
     build:
       args:
         - PROJECT=${PROJECT}
-      dockerfile: ./__project/docker/Dockerfile.work
+      dockerfile: __project/docker/Dockerfile.work
     env_file:
       - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
     depends_on:
-      - base      
+      - base
+      - db    
     volumes:
       - ~/:${HOME}
       - ./:/application
@@ -34,4 +47,5 @@ services:
       - "8080:8080"
     tty: true
 
-    
+volumes:
+  db-data:

@@ -1,14 +1,6 @@
-DC=docker compose\
- --env-file .env \
- -f __project/docker/docker-compose.yml --project-directory ./
-
 # Building docker images with compose.
 build:
 	@$(DC) build
-
-# Same as build but adds --progress-plain to it, handy for troubleshooting.
-build-plain:
-	@$(DC) build --progress=plain
 
 # Start the compose defined docker environment(s).
 up:
@@ -30,4 +22,9 @@ work:
 work-root:
 	@$(DC) exec -it work $(ARGS)
 
+# Run on db using root
+db:
+	@$(DC) exec -it db $(ARGS)
 
+psql:
+	@$(DC) exec -it -u postgres db /usr/bin/psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)

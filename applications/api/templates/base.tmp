@@ -1,0 +1,30 @@
+<! doctype html>
+
+<html>
+  <head>
+    <title> API Root points </title>
+  </head>
+
+  <body>
+    <h1> API Root points</h1>
+
+    <h2> Authentication </h2>
+	{% for name, url in auth_urls %}
+		<a href="{{url}}">{{name}}</a>
+		<br />
+	{% endfor %}
+	
+	<h2> Applications </h2>
+	Each application has its own browsable root api, the return behaviour is
+	as specified by Django Rest Framework (when using pagination) and so are
+	the <a href="https://www.django-rest-framework.org/api-guide/exceptions/">
+	errors </a>.
+	<br />
+	{% for name, url in app_urls %}
+		<a href="{{url}}">{{name}}</a>
+		<br />
+	{% endfor %}
+  </body>
+</html>
+
+ 
